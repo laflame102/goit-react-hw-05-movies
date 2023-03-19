@@ -1,33 +1,33 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 
-const SearchBox = ({ onSubmit }) => {
-  // const [input, setInput] = useState('');
+// const SearchBox = ({ onSubmit }) => {
+//   // const [input, setInput] = useState('');
 
-  const handleFormSubmit = evt => {
-    evt.preventDefault();
+//   const handleFormSubmit = evt => {
+//     evt.preventDefault();
 
-    if (input.trim() === '') {
-      alert('input movie name');
-      return;
-    }
+//     if (input.trim() === '') {
+//       alert('input movie name');
+//       return;
+//     }
 
-    onSubmit(input);
+//     onSubmit(input);
 
-    setInput('');
-  };
+//     setInput('');
+//   };
 
-  return (
-    <div>
-      <form onSubmit={handleFormSubmit}>
-        <input
-          type="text"
-          value={input}
-          onChange={evt => setInput(evt.target.value)}
-        />
-        <button type="submit">Search</button>
-      </form>
-    </div>
-  );
-};
+//   return (
+//     <div>
+//       <form onSubmit={handleFormSubmit}>
+//         <input
+//           type="text"
+//           value={input}
+//           onChange={evt => setInput(evt.target.value)}
+//         />
+//         <button type="submit">Search</button>
+//       </form>
+//     </div>
+//   );
+// };
 
-export default SearchBox;
+// export default SearchBox;

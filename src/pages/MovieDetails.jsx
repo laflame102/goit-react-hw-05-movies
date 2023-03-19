@@ -1,11 +1,11 @@
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getMovieDetails } from 'services';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState([]);
   const { movieId } = useParams();
-  const location = useLocation();
+  // const location = useLocation();
 
   useEffect(() => {
     const fetchMovie = async () => {
