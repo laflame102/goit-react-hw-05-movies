@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 
 const MovieList = ({ movies }) => {
@@ -6,8 +7,10 @@ const MovieList = ({ movies }) => {
     <div>
       <ul>
         {movies.map(({ id, original_title }) => (
-          <li key={id} state={{ from: location }}>
-            <Link to={`/movies/${id}`}>{original_title}</Link>
+          <li key={id}>
+            <Link to={`/movies/${id}`} state={{ from: location }}>
+              {original_title}
+            </Link>
           </li>
         ))}
       </ul>
@@ -16,3 +19,7 @@ const MovieList = ({ movies }) => {
 };
 
 export default MovieList;
+
+MovieList.propTypes = {
+  movies: PropTypes.array,
+};

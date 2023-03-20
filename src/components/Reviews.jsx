@@ -24,18 +24,20 @@ const Reviews = () => {
     fetchCast();
   }, [movieId]);
 
-  console.log(reviews);
-
   return (
     <div>
       {loading && <Loader />}
       <ul>
-        {reviews.map(({ author, content, id }) => (
-          <li key={id}>
-            <b>{author}</b>
-            <p>{content}</p>
-          </li>
-        ))}
+        {reviews.length > 0 ? (
+          reviews.map(({ author, content, id }) => (
+            <li key={id}>
+              <b>{author}</b>
+              <p>{content}</p>
+            </li>
+          ))
+        ) : (
+          <p>Sorry, there is no reviews</p>
+        )}
       </ul>
     </div>
   );

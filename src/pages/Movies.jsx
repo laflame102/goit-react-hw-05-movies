@@ -1,17 +1,20 @@
+import Loader from 'components/Loader/Loader';
 import MovieList from 'components/MovieList';
-// import SearchBox from 'components/SearchBox/SearchBox';
-import { useState, useEffect } from 'react';
+import SearchBox from 'components/SearchBox/SearchBox';
+import { useState, useEffect, Suspense } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import { getMovies } from 'services';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
-  const [inputValue, setInputValue] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
-
   const filmName = searchParams.get('name') ?? '';
 
   useEffect(() => {
+    if (!filmName) {
+      return;
+    }
+
     const fetchMovies = async () => {
       try {
         const response = await getMovies(filmName);
@@ -24,29 +27,17 @@ const Movies = () => {
     fetchMovies();
   }, [filmName]);
 
-  console.log(movies);
-
-  const handleFormSubmit = evt => {
-    evt.preventDefault();
-    setSearchParams({ filmName: inputValue });
+  const handleFormSubmit = value => {
+    setSearchParams({ name: value });
   };
 
   return (
     <div>
-      {/* <SearchBox onSubmit={handleFormSubmit} /> */}
-      <div>
-        <form onSubmit={handleFormSubmit}>
-          <input
-            type="text"
-            value={inputValue}
-            onChange={evt => setInputValue(evt.target.value)}
-          />
-          <button type="submit">Search</button>
-        </form>
-      </div>
-
+      <SearchBox onSubmit={handleFormSubmit} />
       <MovieList movies={movies} />
-      <Outlet />
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
