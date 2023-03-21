@@ -1,5 +1,5 @@
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { getMovieDetails } from 'services';
 import BackLink from 'components/BackLink/BackLink';
 import Loader from 'components/Loader/Loader';
@@ -8,7 +8,8 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState([]);
   const { movieId } = useParams();
   const location = useLocation();
-  const BackLinkHref = location.state?.from ?? '/movies';
+
+  const BackLinkHref = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -27,12 +28,14 @@ const MovieDetails = () => {
     return null;
   }
 
+  console.log(location);
+
   const { original_title, vote_average, overview, genres, poster_path } = movie;
 
   return (
     <div>
       <div>
-        <BackLink to={BackLinkHref}>Go back</BackLink>
+        <BackLink to={BackLinkHref.current}>Go back</BackLink>
         <h2>FILM NAME: {original_title}</h2>
         <img
           src={`https://image.tmdb.org/t/p/w500${poster_path}`}
